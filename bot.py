@@ -10,6 +10,8 @@ async def on_message(message):
     if message.content.startswith('$hoi'):
         msg = 'H0i!!!! {0.author.mention}'
         await message.channel.send(msg.format(message))
+        await message.channel.send('''
+https://tenor.com/view/h-oi-undertale-temmie-funny-toby-fox-gif-18014661'''.format(message))  
     elif message.content.startswith('$dado') or message.content.startswith('$dice'):
         if ' ' in message.content:
             inp = int(message.content[5:])
