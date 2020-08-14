@@ -1,5 +1,6 @@
 import discord
 from random import randint
+from random import choice
 client = discord.Client()
 
 
@@ -33,7 +34,8 @@ help/ajuda - Mostra a lista de comandos do bot.
 info - Mostra as informações do bot.
 say/falar [mensagem] - Deixe o bot falar por você!
 shipp [nome 1] [nome 2] - Veja a probabilidade do seu shipp preferido!
-terminal [mensagem] - Mande uma mensagem para o terminal do bot!```'''
+terminal [mensagem] - Mande uma mensagem para o terminal do bot!
+coin/moeda - Gire uma moeda para ver se cai cara ou coroa.```'''
         await message.channel.send(msg.format(message))
     elif message.content.startswith('$falar') or message.content.startswith('$say'):
         msg = '{0.author.mention}'+message.content[message.content.find(' '):]
@@ -62,6 +64,10 @@ terminal [mensagem] - Mande uma mensagem para o terminal do bot!```'''
         print('Servidor:', message.guild)
         print('Canal:', message.channel)
         print('Usuário:', message.author)
+    elif message.content.startswith('$moeda') or message.content.startswith('$coin'):
+        moeda = 'cara', 'coroa'
+        msg = '{0.author.mention} Jogou a moeda, caiu em '+choice(moeda)+'.'
+        await message.channel.send(msg.format(message))
 
 
 @client.event
