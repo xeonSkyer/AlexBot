@@ -1,18 +1,25 @@
-import discord
+import discord, os
 from random import randint, choice
 client = discord.Client()
+diret = os.getcwd()
 
 
 @client.event
 async def on_message(message):
+    os.chdir('diretório')
+    if str(message.guild)+'.txt' in os.listdir():
+        with open(str(message.guild)+'.txt') as file:
+            p = file.read()
+    else:
+        p = '$'
     if message.author == client.user:
         return
-    if message.content.startswith('$hoi'):
+    if message.content.startswith(p+'hoi'):
         msg = 'H0i!!!! {0.author.mention}'
         await message.channel.send(msg.format(message))
         await message.channel.send('''
-https://tenor.com/view/h-oi-undertale-temmie-funny-toby-fox-gif-18014661'''.format(message))  
-    elif message.content.startswith('$dado') or message.content.startswith('$dice'):
+https://tenor.com/view/h-oi-undertale-temmie-funny-toby-fox-gif-18014661'''.format(message))
+    elif message.content.startswith(p+'dado') or message.content.startswith(p+'dice'):
         if ' ' in message.content:
             inp = int(message.content[5:])
         else:
@@ -20,26 +27,26 @@ https://tenor.com/view/h-oi-undertale-temmie-funny-toby-fox-gif-18014661'''.form
         num = str(randint(1, inp))
         msg = '{0.author.mention} um dado de '+str(inp)+' lados rolou! Caiu em '+num+'.'
         await message.channel.send(msg.format(message))
-    elif message.content.startswith('$info'):
+    elif message.content.startswith(p+'info'):
         msg = '''{0.author.mention} Sou um bot bem básico, criado com o objetivo de testar o módulo discord.py.
 Feito por AlexTheHedgehog 
 (aka Daniel Chaves).'''
         await message.channel.send(msg.format(message))
-    elif message.content.startswith('$help') or message.content.startswith('$ajuda'):
-        msg = '''```Prefixo: $
-hoi - Faz o bot falar "H0i!!!" pra você.
+    elif message.content.startswith(p+'help') or message.content.startswith(p+'ajuda'):
+        msg = '```Prefixo: '+p+'''\n$hoi - Faz o bot falar "H0i!!!" pra você.
 dice/dado [número] - rola um dado, com o limite sendo o número que você escolher. (ex: $dado 6)
 help/ajuda - Mostra a lista de comandos do bot.
 info - Mostra as informações do bot.
 say/falar [mensagem] - Deixe o bot falar por você!
 shipp [nome 1] [nome 2] - Veja a probabilidade do seu shipp preferido!
 terminal [mensagem] - Mande uma mensagem para o terminal do bot!
-coin/moeda - Gire uma moeda para ver se cai cara ou coroa.```'''
+coin/moeda - Gire uma moeda para ver se cai cara ou coroa.
+prefixo - Muda o prefixo do bot no seu servidor!```'''
         await message.channel.send(msg.format(message))
-    elif message.content.startswith('$falar') or message.content.startswith('$say'):
+    elif message.content.startswith(p+'falar') or message.content.startswith(p+'say'):
         msg = '{0.author.mention}'+message.content[message.content.find(' '):]
         await message.channel.send(msg.format(message))
-    elif message.content.startswith('$shipp'):
+    elif message.content.startswith(p+'shipp'):
         p1 = message.content[message.content.find(' '): message.content.rfind(' ')+1]
         p2 = message.content[message.content.rfind(' '):]
         prob = randint(0, 100)
@@ -58,7 +65,7 @@ coin/moeda - Gire uma moeda para ver se cai cara ou coroa.```'''
             msg2 = ':revolving_hearts: CASAL PERFEITO!!! :revolving_hearts:'
         await message.channel.send(msg.format(message))
         await message.channel.send(msg2.format(message))
-    elif message.content.startswith('$terminal'):
+    elif message.content.startswith(p+'terminal'):
         print('Mensagem:', message.content[10:])
         print('Servidor:', message.guild)
         print('Canal:', message.channel)
@@ -67,6 +74,11 @@ coin/moeda - Gire uma moeda para ver se cai cara ou coroa.```'''
         moeda = 'cara', 'coroa'
         msg = '{0.author.mention} Jogou a moeda, caiu em '+choice(moeda)+'.'
         await message.channel.send(msg.format(message))
+    elif message.content.startswith(p+'prefixo'):
+        with open(str(message.guild)+'.txt', 'w') as f:
+            f.write(str(message.content[9]))
+        await message.channel.send('{0.author.mention} prefixo modificado!'.format(message))
+    os.chdir(diret)
 
 
 @client.event
