@@ -1,2 +1,2 @@
-# AlexBot
+# Panquequinha
 O bot do Alex. YEY!
