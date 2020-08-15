@@ -40,7 +40,7 @@ Feito por AlexTheHedgehog
 (aka Daniel Chaves).'''
         await message.channel.send(msg.format(message))
     elif message.content.startswith(p + 'help') or message.content.startswith(p + 'ajuda'):
-        os.chdir('C:/Users/silva/PycharmProjects/Discord Bot/images')
+        os.chdir('diretório das imagens')
         msg = '```Prefixo: ' + p + '''\n$hoi - Faz o bot falar "H0i!!!" pra você.
 dice/dado [número] - rola um dado, com o limite sendo o número que você escolher. (ex: $dado 6)
 help/ajuda - Mostra a lista de comandos do bot.
