@@ -1,17 +1,22 @@
-import discord, os
+import discord#, os
 from random import randint, choice
+from discord import member
 client = discord.Client()
-diret = os.getcwd()
+#diret = os.getcwd()
 
 
 @client.event
 async def on_message(message):
-    os.chdir('diretório')
-    if str(message.guild)+'.txt' in os.listdir():
-        with open(str(message.guild)+'.txt') as file:
-            p = file.read()
-    else:
-        p = '$'
+#    os.chdir('diretório pro arquivo dos prefixos')
+#    file = open('prefixos.txt')
+#    if str(message.guild) in file.read():
+#        linhacom = int(file.read().find(str(message.guild)))
+#        linha = str(file.read()[linhacom:])
+#        p = linha[int(linha.rfind('\n'))-1]
+#    else:
+#        p = '$'
+#   EU PASSEI A TARDE TODA NO PREFIXO PRA NADA
+    p = '$'
     if message.author == client.user:
         return
     if message.content.startswith(p+'hoi'):
@@ -39,9 +44,9 @@ help/ajuda - Mostra a lista de comandos do bot.
 info - Mostra as informações do bot.
 say/falar [mensagem] - Deixe o bot falar por você!
 shipp [nome 1] [nome 2] - Veja a probabilidade do seu shipp preferido!
-terminal [mensagem] - Mande uma mensagem para o terminal do bot!
+terminal [mensagem] (admin) - Mande uma mensagem para o terminal do bot!
 coin/moeda - Gire uma moeda para ver se cai cara ou coroa.
-prefixo - Muda o prefixo do bot no seu servidor!```'''
+prefixo [prefixo] (fase de teste) (admin) - Muda o prefixo do bot no seu servidor!```'''
         await message.channel.send(msg.format(message))
     elif message.content.startswith(p+'falar') or message.content.startswith(p+'say'):
         msg = '{0.author.mention}'+message.content[message.content.find(' '):]
@@ -65,7 +70,7 @@ prefixo - Muda o prefixo do bot no seu servidor!```'''
             msg2 = ':revolving_hearts: CASAL PERFEITO!!! :revolving_hearts:'
         await message.channel.send(msg.format(message))
         await message.channel.send(msg2.format(message))
-    elif message.content.startswith(p+'terminal'):
+    elif message.content.startswith(p+'terminal') and member.Permissions.administrator:
         print('Mensagem:', message.content[10:])
         print('Servidor:', message.guild)
         print('Canal:', message.channel)
@@ -74,12 +79,12 @@ prefixo - Muda o prefixo do bot no seu servidor!```'''
         moeda = 'cara', 'coroa'
         msg = '{0.author.mention} Jogou a moeda, caiu em '+choice(moeda)+'.'
         await message.channel.send(msg.format(message))
-    elif message.content.startswith(p+'prefixo'):
-        with open(str(message.guild)+'.txt', 'w') as f:
-            f.write(str(message.content[9]))
-        await message.channel.send('{0.author.mention} prefixo modificado!'.format(message))
-    os.chdir(diret)
-
+#    elif message.content.startswith(p+'prefixo') and member.Permissions.administrator:
+#        with open('prefixos.txt', 'a') as file:
+#            file.write(str(message.guild)+' '+str(message.content)[9]+'\n')
+#        await message.channel.send('{0.author.mention} prefixo modificado!'.format(message))
+#    os.chdir(diret)
+#    file.close()
 
 @client.event
 async def on_ready():
