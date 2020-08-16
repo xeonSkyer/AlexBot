@@ -113,6 +113,6 @@ async def on_ready():
     print(client.user.id)
     print('Bem vindo ao programa de bots do Discord!\nFeito por AlexTheHedgehog/Daniel Chaves.')
     print('=' * 40)
-    await client.change_presence(activity=discord.Game(name='🥞 Fazendo panquecas 🥞'))
+    await client.change_presence(activity=discord.Game(name='🥞 jooj 🥞'))
 
 client.run('seu token')
