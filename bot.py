@@ -51,7 +51,7 @@ terminal [mensagem] (admin) - Mande uma mensagem para o terminal do bot!
 coin/moeda - Gire uma moeda para ver se cai cara ou coroa.
 prefixo [prefixo] (fase de teste) (admin) - Muda o prefixo do bot no seu servidor!```'''
         await message.author.send(msg.format(message))
-        await message.add_reaction('👌')
+        await message.add_reaction('🥞')
         await message.author.send(file=discord.File('wonderful.png'))
     elif message.content.startswith(p + 'falar') or message.content.startswith(p + 'say'):
         msg = '{0.author.mention}' + message.content[message.content.find(' '):]
@@ -81,7 +81,7 @@ prefixo [prefixo] (fase de teste) (admin) - Muda o prefixo do bot no seu servido
         print('Servidor:', message.guild)
         print('Canal:', message.channel)
         print('Usuário:', message.author)
-    elif message.content.startswith('$moeda') or message.content.startswith('$coin'):
+    elif message.content.startswith(p + 'moeda') or message.content.startswith(p + 'coin'):
         moeda = 'cara', 'coroa'
         msg = '{0.author.mention} Jogou a moeda, caiu em ' + choice(moeda) + '.'
         await message.channel.send(msg.format(message))
@@ -102,6 +102,6 @@ async def on_ready():
     print(client.user.id)
     print('Bem vindo ao programa de bots do Discord!\nFeito por AlexTheHedgehog/Daniel Chaves.')
     print('=' * 40)
-    await client.change_presence(activity=discord.Game(name='jooj'))
+    await client.change_presence(activity=discord.Game(name='🥞jooj'🥞))
 
 client.run('seu token')
