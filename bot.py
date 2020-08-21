@@ -19,6 +19,7 @@ async def on_message(message):
     #    else:
     #        p = '$'
     p = '$'
+    os.chdir(diret.replace(' \ '.replace(' ', ''), '/') + '/images')
     if message.author == client.user:
         return
     if message.content.startswith(f'{p}hoi'):
@@ -40,7 +41,6 @@ Feito por AlexTheHedgehog
 (aka Daniel Chaves).'''
         await message.channel.send(msg.format(message))
     elif message.content.startswith(f'{p}help') or message.content.startswith(f'{p}ajuda'):
-        os.chdir(diret.replace(' \ '.replace(' ', ''), '/')+'/images')
         msg = f'''```Prefixo: {p}\n$hoi - Faz o bot falar "H0i!!!" pra você.
 dice/dado [número] - rola um dado, com o limite sendo o número que você escolher. (ex: $dado 6)
 help/ajuda - Mostra a lista de comandos do bot.
@@ -50,7 +50,8 @@ shipp [nome 1] [nome 2] - Veja a probabilidade do seu shipp preferido!
 terminal [mensagem] (admin) - Mande uma mensagem para o terminal do bot!
 coin/moeda - Gire uma moeda para ver se cai cara ou coroa.
 prefixo [prefixo] (fase de teste) (admin) - Muda o prefixo do bot no seu servidor!
-tabuada/mt [número] - escolha um número para ver a tabuada!```'''
+tabuada/mt [número] - escolha um número para ver a tabuada!
+ameaça/threat [mensagem] - Ameace alguém, ou qualquer coisa!```'''
         await message.author.send(msg.format(message))
         await message.add_reaction('🥞')
         await message.author.send(file=discord.File('wonderful.png'))
@@ -61,7 +62,7 @@ tabuada/mt [número] - escolha um número para ver a tabuada!```'''
         p1 = message.content[message.content.find(' '): message.content.rfind(' ') + 1]
         p2 = message.content[message.content.rfind(' '):]
         prob = randint(0, 100)
-        msg = f':heart: O shipp entre {p1} e {p2} tem {prob}% de chance de dar certo. :heart:'
+        msg = f':heart: O shipp entre{p1}e{p2} tem {prob}% de chance de dar certo. :heart:'
         if 0 < prob <= 20:
             msg2 = 'Que pena... Parece que esse shipp não vai funcionar muito bem... 💔'
         elif 20 < prob <= 40:
@@ -96,6 +97,10 @@ tabuada/mt [número] - escolha um número para ver a tabuada!```'''
             t += f'{num} x {c} = {num*c}\n'
         t += '```'
         await message.channel.send(('{0.author.mention} '+t).format(message))
+    elif message.content.startswith(f'{p}ameaçar') or message.content.startswith(f'{p}threat'):
+        mc = message.content
+        msg = 'ameaçou{}. O que acontecerá entre eles agora?'.format(mc[mc.find(' '):])
+        await message.channel.send(('{0.author.mention} '+msg).format(message), file=discord.File('delet.png'))
     #    elif message.content.startswith(p+'prefixo') and member.Permissions.administrator:
     #        with open('prefixos.txt', 'a') as file:
     #            file.write(str(message.guild)+' '+str(message.content)[9]+'\n')
@@ -113,6 +118,6 @@ async def on_ready():
     print(client.user.id)
     print('Bem vindo ao programa de bots do Discord!\nFeito por AlexTheHedgehog/Daniel Chaves.')
     print('=' * 40)
-    await client.change_presence(activity=discord.Game(name='🥞 jooj 🥞'))
+    await client.change_presence(activity=discord.Game(name='🥞 Fazendo panquecas 🥞'))
 
 client.run('seu token')
